@@ -49,74 +49,74 @@ WidgetResult Settings::OnDisable()
 void Settings::OnUpdate()
 {
     const auto frameSize = ImVec2(ImGui::GetContentRegionAvail().x, -(ImGui::GetFrameHeight() + ImGui::GetStyle().ItemSpacing.y + ImGui::GetStyle().FramePadding.y + 2.0f));
-    if (ImGui::BeginChild(ImGui::GetID("Settings"), frameSize))
+    if (ImGui::BeginChild(ImGui::GetID("设置"), frameSize))
     {
         m_madeChanges = false;
-        if (ImGui::CollapsingHeader("Patches", ImGuiTreeNodeFlags_DefaultOpen))
+        if (ImGui::CollapsingHeader("补丁程序", ImGuiTreeNodeFlags_DefaultOpen))
         {
             ImGui::TreePush();
             if (ImGui::BeginTable("##SETTINGS_PATCHES", 2, ImGuiTableFlags_Sortable | ImGuiTableFlags_SizingStretchSame, ImVec2(-ImGui::GetStyle().IndentSpacing, 0)))
             {
                 const auto& patchesSettings = m_options.Patches;
                 UpdateAndDrawSetting(
-                    "AMD SMT Patch",
-                    "For AMD CPUs that did not get a performance boost after CDPR's patch (requires restart to take "
-                    "effect).",
+                    "AMD SMT补丁",
+                    "适用于在蠢驴更新后未获得性能提升的AMD处理器 "
+                    "（需要重启游戏才能生效）",
                     m_patches.AmdSmt, patchesSettings.AmdSmt);
                 UpdateAndDrawSetting(
-                    "Remove Pedestrians", "Removes most of the pedestrians and traffic (requires restart to take effect).", m_patches.RemovePedestrians,
+                    "移除行人", "移除大部分行人和交通（需要重启游戏才能生效）", m_patches.RemovePedestrians,
                     patchesSettings.RemovePedestrians);
                 UpdateAndDrawSetting(
-                    "Disable Async Compute",
-                    "Disables async compute, this can give a boost on older GPUs like Nvidia 10xx series for example "
-                    "(requires restart to take effect).",
+                    "禁用异步计算",
+                    "禁用异步计算，可以提升旧显卡的性能，例如英伟达GTX 10系显卡 "
+                    "（需要重启游戏才能生效）",
                     m_patches.AsyncCompute, patchesSettings.AsyncCompute);
                 UpdateAndDrawSetting(
-                    "Disable Anti-aliasing", "Completely disables anti-aliasing (requires restart to take effect).", m_patches.Antialiasing, patchesSettings.Antialiasing);
+                    "禁用抗锯齿", "完全禁用抗锯齿（需要重启游戏才能生效）", m_patches.Antialiasing, patchesSettings.Antialiasing);
                 UpdateAndDrawSetting(
-                    "Skip Start Menu",
-                    "Skips the 'Breaching...' menu asking you to press space bar to continue (requires restart to take "
-                    "effect).",
+                    "跳过开始界面",
+                    "跳过开始要你按空格键继续的界面 "
+                    "（需要重启游戏才能生效）",
                     m_patches.SkipStartMenu, patchesSettings.SkipStartMenu);
                 UpdateAndDrawSetting(
-                    "Suppress Intro Movies", "Disables logos played at the beginning (requires restart to take effect).", m_patches.DisableIntroMovies,
+                    "禁用开场动画", "禁用开场动画视频（需要重启游戏才能生效）", m_patches.DisableIntroMovies,
                     patchesSettings.DisableIntroMovies);
                 UpdateAndDrawSetting(
-                    "Disable Vignette", "Disables vignetting along screen borders (requires restart to take effect).", m_patches.DisableVignette, patchesSettings.DisableVignette);
+                    "禁用晕影", "禁用屏幕四边的渐变黑色晕影（需要重启游戏才能生效）", m_patches.DisableVignette, patchesSettings.DisableVignette);
                 UpdateAndDrawSetting(
-                    "Disable Boundary Teleport", "Allows players to access out-of-bounds locations (requires restart to take effect).", m_patches.DisableBoundaryTeleport,
+                    "禁用边界传送", "允许玩家进入边界外面的地方（需要重启游戏才能生效）", m_patches.DisableBoundaryTeleport,
                     patchesSettings.DisableBoundaryTeleport);
-                UpdateAndDrawSetting("Disable V-Sync (Windows 7 only)", " (requires restart to take effect).", m_patches.DisableWin7Vsync, patchesSettings.DisableWin7Vsync);
+                UpdateAndDrawSetting("禁用V-Sync (仅限Win7系统)", "在Win7上禁用V-sync以绕过垂直同步60帧的限制（需要重启游戏才能生效）", m_patches.DisableWin7Vsync, patchesSettings.DisableWin7Vsync);
                 UpdateAndDrawSetting(
-                    "Fix Minimap Flicker", "Disables VSync on Windows 7 to bypass the 60 FPS limit (requires restart to take effect).", m_patches.MinimapFlicker,
+                    "修复小地图闪烁", "（需要重新启动游戏才能生效）", m_patches.MinimapFlicker,
                     patchesSettings.MinimapFlicker);
 
                 ImGui::EndTable();
             }
             ImGui::TreePop();
         }
-        if (ImGui::CollapsingHeader("CET Development Settings", ImGuiTreeNodeFlags_DefaultOpen))
+        if (ImGui::CollapsingHeader("控制台其他设置", ImGuiTreeNodeFlags_DefaultOpen))
         {
             ImGui::TreePush();
             if (ImGui::BeginTable("##SETTINGS_DEV", 2, ImGuiTableFlags_Sortable | ImGuiTableFlags_SizingStretchSame, ImVec2(-ImGui::GetStyle().IndentSpacing, 0)))
             {
                 const auto& developerSettings = m_options.Developer;
                 UpdateAndDrawSetting(
-                    "Remove Dead Bindings",
-                    "Removes all bindings which are no longer valid (disabling this could be useful when debugging mod "
-                    "issues).",
+                    "去除无效按键绑定",
+                    "去除所有不再有效的按键绑定 "
+                    "(在调试模组问题时禁用此项可能会很有用)",
                     m_developer.RemoveDeadBindings, developerSettings.RemoveDeadBindings);
                 UpdateAndDrawSetting(
-                    "Enable ImGui Assertions",
-                    "Enables all ImGui assertions, assertions will get logged into log file of whoever triggered the "
-                    "assertion (useful when debugging ImGui issues, should also be used to check mods before "
-                    "shipping!).",
+                    "启用ImGui界面诊断窗口",
+                    "启用所有ImGui诊断，诊断将被记录到触发诊断人的日志文件中 "
+                    "（在调试ImGui界面问题时很有用， "
+                    "也应该用于发布模组之前检查模组问题！）",
                     m_developer.EnableImGuiAssertions, developerSettings.EnableImGuiAssertions);
                 UpdateAndDrawSetting(
-                    "Enable Debug Build", "Sets internal flags to disguise as debug build (requires restart to take effect).", m_developer.EnableDebug,
+                    "启用Debug版本", "设置内部标签以伪装成Debug版本（需要重新启动游戏才能生效）", m_developer.EnableDebug,
                     developerSettings.EnableDebug);
                 UpdateAndDrawSetting(
-                    "Dump Game Options", "Dumps all game options into main log file (requires restart to take effect).", m_developer.DumpGameOptions,
+                    "转储游戏配置", "将所有游戏配置转储到主日志文件中（需要重新启动游戏才能生效）", m_developer.DumpGameOptions,
                     developerSettings.DumpGameOptions);
 
                 ImGui::EndTable();
@@ -129,13 +129,13 @@ void Settings::OnUpdate()
     ImGui::Separator();
 
     const auto itemWidth = GetAlignedItemWidth(3);
-    if (ImGui::Button("Load", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("加载", ImVec2(itemWidth, 0)))
         Load();
     ImGui::SameLine();
-    if (ImGui::Button("Save", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("保存", ImVec2(itemWidth, 0)))
         Save();
     ImGui::SameLine();
-    if (ImGui::Button("Defaults", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("默认", ImVec2(itemWidth, 0)))
         ResetToDefaults();
 }
 

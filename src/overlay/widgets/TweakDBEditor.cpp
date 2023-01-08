@@ -121,7 +121,7 @@ bool StringContains(const std::string_view& acString, const std::string_view& ac
 }
 
 TweakDBEditor::TweakDBEditor(LuaVM& aVm)
-    : Widget("TweakDB Editor")
+    : Widget("TweakDBEditor")
     , m_vm(aVm)
 {
 }
@@ -131,7 +131,7 @@ void TweakDBEditor::OnUpdate()
     // LuaVM is initialized after TweakDB, let's wait for it
     if (!m_vm.IsInitialized())
     {
-        ImGui::TextUnformatted("TweakDB is not initialized yet");
+        ImGui::TextUnformatted("TweakDB尚未初始化");
         return;
     }
 

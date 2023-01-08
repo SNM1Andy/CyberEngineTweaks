@@ -8,7 +8,7 @@
 namespace
 {
 VKBind s_overlayToggleBind{
-    "overlay_key", "Overlay Key", "Use this hotkey to toggle overlay on and off.",
+    "overlay_key", "控制台界面开关", "使用此按键可打开和关闭界面",
     []
     {
         if (!CET::Get().GetBindings().IsRecordingBind())
@@ -79,7 +79,7 @@ WidgetResult Bindings::OnDisable()
 void Bindings::OnUpdate()
 {
     const auto frameSize = ImVec2(ImGui::GetContentRegionAvail().x, -(ImGui::GetFrameHeight() + ImGui::GetStyle().ItemSpacing.y + ImGui::GetStyle().FramePadding.y + 2.0f));
-    if (ImGui::BeginChild(ImGui::GetID("Bindings"), frameSize))
+    if (ImGui::BeginChild(ImGui::GetID("绑定按键"), frameSize))
     {
         m_madeChanges = false;
         for (auto modBindingsIt = m_vkBindInfos.begin(); modBindingsIt != m_vkBindInfos.end(); ++modBindingsIt)
@@ -90,10 +90,10 @@ void Bindings::OnUpdate()
     ImGui::Separator();
 
     const auto itemWidth = GetAlignedItemWidth(2);
-    if (ImGui::Button("Save", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("保存", ImVec2(itemWidth, 0)))
         Save();
     ImGui::SameLine();
-    if (ImGui::Button("Reset changes", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("重置修改", ImVec2(itemWidth, 0)))
         ResetChanges();
 }
 
@@ -165,17 +165,17 @@ bool Bindings::FirstTimeSetup()
 
     m_vm.BlockDraw(true);
 
-    ImGui::OpenPopup("CET First Time Setup");
+    ImGui::OpenPopup("控制台首次设置");
 
-    if (ImGui::BeginPopupModal("CET First Time Setup", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+    if (ImGui::BeginPopupModal("控制台首次设置", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
     {
-        const auto shorterTextSz{ImGui::CalcTextSize("Combo can be composed from up to 4 keys.").x};
-        const auto longerTextSz{ImGui::CalcTextSize("Please, bind some key combination for toggling overlay!").x};
+        const auto shorterTextSz{ImGui::CalcTextSize("组合快捷键最多可由4个键组成").x};
+        const auto longerTextSz{ImGui::CalcTextSize("请绑定按键来开关控制台！").x};
         const auto diffTextSz{longerTextSz - shorterTextSz};
 
-        ImGui::TextUnformatted("Please, bind some key combination for toggling overlay!");
+        ImGui::TextUnformatted("请绑定按键来开关控制台！");
         ImGui::SetCursorPosX(diffTextSz / 2);
-        ImGui::TextUnformatted("Combo can be composed from up to 4 keys.");
+        ImGui::TextUnformatted("组合快捷键最多可由4个键组成");
         ImGui::Separator();
 
         auto& [cetBinds, cetHotkeys] = m_vkBindInfos.at(s_overlayToggleModBind.ModName);
@@ -359,7 +359,7 @@ void Bindings::UpdateAndDrawBinding(const VKModBind& acModBind, VKBindInfo& aVKB
                 ImGui::EndTooltip();
             }
             else
-                ImGui::SetTooltip("Currently unable to draw this tooltip. Wait for a bit please...");
+                ImGui::SetTooltip("现在无法移动工具提示，请稍微...");
         }
         if (bind.HasSimpleDescription())
         {
@@ -374,7 +374,7 @@ void Bindings::UpdateAndDrawBinding(const VKModBind& acModBind, VKBindInfo& aVKB
     const auto currentBindState = aVKBindInfo.IsBinding ? m_bindings.GetLastRecordingResult() : aVKBindInfo.CodeBind;
     ImGui::PushID(&aVKBindInfo.CodeBind);
     if (ImGui::Button(
-            aVKBindInfo.IsBinding && currentBindState == 0 ? "Binding..." : VKBindings::GetBindString(currentBindState).c_str(),
+            aVKBindInfo.IsBinding && currentBindState == 0 ? "绑定中..." : VKBindings::GetBindString(currentBindState).c_str(),
             ImVec2(unbindable ? -(ImGui::GetFrameHeight() + ImGui::GetStyle().ItemSpacing.x) : -FLT_MIN, 0)))
     {
         if (!aVKBindInfo.IsBinding && !isRecording)
@@ -396,7 +396,7 @@ void Bindings::UpdateAndDrawBinding(const VKModBind& acModBind, VKBindInfo& aVKB
                 ImGui::EndTooltip();
             }
             else
-                ImGui::SetTooltip("Currently unable to draw this tooltip. Wait for a bit please...");
+                ImGui::SetTooltip("现在无法移动工具提示，请稍微...");
         }
         if (bind.HasSimpleDescription())
         {
@@ -425,7 +425,7 @@ void Bindings::UpdateAndDrawBinding(const VKModBind& acModBind, VKBindInfo& aVKB
         ImGui::PopID();
 
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
-            ImGui::SetTooltip("Uncheck this checkbox to unbind this binding.");
+            ImGui::SetTooltip("选中此框可取消绑定此按键");
     }
 
     ImGui::PopStyleColor();
@@ -471,11 +471,11 @@ void Bindings::UpdateAndDrawModBindings(const std::string& acModName, TiltedPhoq
     {
         if (!aSimplified)
         {
-            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + GetCenteredOffsetForText("Hotkeys"));
-            ImGui::TextUnformatted("Hotkeys");
+            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + GetCenteredOffsetForText("按键"));
+            ImGui::TextUnformatted("按键");
             if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
-                ImGui::SetTooltip("Hotkeys react after assigned key combination has been pressed and subsequently "
-                                  "released. You can bind up to 4 key combination to them.");
+                ImGui::SetTooltip("在指定的组合键被按下和松开时作出反应。 "
+                                  "您最多可以绑定4个键组合成快捷键。");
             ImGui::Separator();
         }
 
@@ -495,10 +495,10 @@ void Bindings::UpdateAndDrawModBindings(const std::string& acModName, TiltedPhoq
     {
         if (!aSimplified)
         {
-            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + GetCenteredOffsetForText("Inputs"));
-            ImGui::TextUnformatted("Inputs");
+            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + GetCenteredOffsetForText("输入"));
+            ImGui::TextUnformatted("输入");
             if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
-                ImGui::SetTooltip("Inputs react when key is pressed and released. You can bind single key to them.");
+                ImGui::SetTooltip("输入在按键被按下和松开时作出反应。您可以将单键绑定到它们。");
             ImGui::Separator();
         }
 

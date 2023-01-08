@@ -106,7 +106,7 @@ void Console::OnUpdate()
         if (!m_command.empty())
         {
             if (!m_vm.ExecuteLua(m_command))
-                consoleLogger->info("Command failed to execute!");
+                consoleLogger->info("指令执行失败！");
 
             m_command.shrink_to_fit();
 

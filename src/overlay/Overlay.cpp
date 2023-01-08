@@ -201,7 +201,7 @@ void Overlay::Update()
     const auto heightLimit = 2 * ImGui::GetFrameHeight() + 2 * ImGui::GetStyle().WindowPadding.y;
     ImGui::SetNextWindowPos({width * 0.25f, height * 0.05f}, ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSizeConstraints({width * 0.5f, heightLimit}, {FLT_MAX, heightLimit});
-    if (ImGui::Begin("Cyber Engine Tweaks"))
+    if (ImGui::Begin("控制台v1.21.1 - 游戏版本v1.61 - 整合汉化免费，收费都是骗子！ - B站Zo70"))
         DrawToolbar();
     ImGui::End();
 
@@ -289,7 +289,7 @@ void Overlay::DrawToolbar()
     auto& persistentState = m_persistentState.Overlay;
 
     ImGui::PushStyleColor(ImGuiCol_Button, persistentState.ConsoleToggled ? ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive) : ImGui::GetStyleColorVec4(ImGuiCol_Button));
-    if (ImGui::Button("Console", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("主页", ImVec2(itemWidth, 0)))
         m_console.Toggle();
     if (!m_toggled)
         persistentState.ConsoleToggled = m_console.IsEnabled();
@@ -298,7 +298,7 @@ void Overlay::DrawToolbar()
     ImGui::SameLine();
 
     ImGui::PushStyleColor(ImGuiCol_Button, persistentState.BindingsToggled ? ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive) : ImGui::GetStyleColorVec4(ImGuiCol_Button));
-    if (ImGui::Button("Bindings", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("绑定按键", ImVec2(itemWidth, 0)))
         m_bindings.Toggle();
     if (!m_toggled)
         persistentState.BindingsToggled = m_bindings.IsEnabled();
@@ -307,7 +307,7 @@ void Overlay::DrawToolbar()
     ImGui::SameLine();
 
     ImGui::PushStyleColor(ImGuiCol_Button, persistentState.SettingsToggled ? ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive) : ImGui::GetStyleColorVec4(ImGuiCol_Button));
-    if (ImGui::Button("Settings", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("设置", ImVec2(itemWidth, 0)))
         m_settings.Toggle();
     if (!m_toggled)
         persistentState.SettingsToggled = m_settings.IsEnabled();
@@ -316,7 +316,7 @@ void Overlay::DrawToolbar()
     ImGui::SameLine();
 
     ImGui::PushStyleColor(ImGuiCol_Button, persistentState.TweakDBEditorToggled ? ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive) : ImGui::GetStyleColorVec4(ImGuiCol_Button));
-    if (ImGui::Button("TweakDB Editor", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("TweakDB编辑", ImVec2(itemWidth, 0)))
         m_tweakDBEditor.Toggle();
     if (!m_toggled)
         persistentState.TweakDBEditorToggled = m_tweakDBEditor.IsEnabled();
@@ -325,7 +325,7 @@ void Overlay::DrawToolbar()
     ImGui::SameLine();
 
     ImGui::PushStyleColor(ImGuiCol_Button, persistentState.GameLogToggled ? ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive) : ImGui::GetStyleColorVec4(ImGuiCol_Button));
-    if (ImGui::Button("Game Log", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("游戏日志", ImVec2(itemWidth, 0)))
         m_gameLog.Toggle();
     if (!m_toggled)
         persistentState.GameLogToggled = m_gameLog.IsEnabled();
@@ -334,7 +334,7 @@ void Overlay::DrawToolbar()
     ImGui::SameLine();
 
     ImGui::PushStyleColor(ImGuiCol_Button, persistentState.ImGuiDebugToggled ? ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive) : ImGui::GetStyleColorVec4(ImGuiCol_Button));
-    if (ImGui::Button("ImGui Debug", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("ImGui界面调试", ImVec2(itemWidth, 0)))
         m_imguiDebug.Toggle();
     if (!m_toggled)
         persistentState.ImGuiDebugToggled = m_imguiDebug.IsEnabled();
@@ -342,6 +342,6 @@ void Overlay::DrawToolbar()
 
     ImGui::SameLine();
 
-    if (ImGui::Button("Reload all mods", ImVec2(itemWidth, 0)))
+    if (ImGui::Button("重载所有模组", ImVec2(itemWidth, 0)))
         m_vm.ReloadAllMods();
 }
