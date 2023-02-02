@@ -3,7 +3,7 @@
 #include "ImGuiDebug.h"
 
 ImGuiDebug::ImGuiDebug()
-    : Widget("ImGuiDebug", true)
+    : Widget("ImGui界面调试", true)
 {
 }
 

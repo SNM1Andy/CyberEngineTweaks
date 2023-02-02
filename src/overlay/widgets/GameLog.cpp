@@ -3,7 +3,7 @@
 #include "GameLog.h"
 
 GameLog::GameLog()
-    : Widget("GameLog")
+    : Widget("游戏日志")
     , m_logWindow("gamelog")
 {
 }
